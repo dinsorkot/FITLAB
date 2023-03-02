@@ -5,7 +5,6 @@ import formpage from '../components/formpage.vue';
 import profilepage from '../components/profilepage.vue';
 import setting from '../components/settingpage.vue'
 import { ref } from 'vue';
-import {db} from '../firebase';
 
 const postView = ref(true);
 const dashboardView = ref(false);

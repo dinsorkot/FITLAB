@@ -1,3 +1,7 @@
+<script setup>
+import { }
+
+</script>
 <template>
     <div class="post d-flex align-items-center justify-content-center">
         <div class="card box  d-flex justify-content-center align-items-center">

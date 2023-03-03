@@ -4,10 +4,22 @@ import { storeToRefs } from "pinia";
 import { useExerciseStore } from "../../stores/dataExercise";
 import { db } from "/src/firebase.js";
 import { collection, addDoc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 var selectedNumber = ref(0);
 const store = useExerciseStore();
 const { data_hour } = storeToRefs(store);
-const exercisedata = ref({ type: {}, hour: 0, minute: 0 });
+const auth = getAuth();
+const exercisedata = ref({ type: {}, hour: 0, minute: 0, id: [] });
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const uid = user.uid;
+    console.log(uid);
+    exercisedata.value.id.push(uid);
+  } else {
+    // User is signed out
+  }
+});
 
 async function addexercisedata() {
   try {

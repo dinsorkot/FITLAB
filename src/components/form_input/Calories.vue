@@ -2,10 +2,24 @@
 import { ref } from "vue";
 import { db } from "/src/firebase.js";
 import { collection, addDoc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 var selectedNumber = ref(0);
 
-const caloriedata = ref({ foodname: "", numcalorie: 0 });
+const auth = getAuth();
+
+const caloriedata = ref({ foodname: "", numcalorie: 0, id: [] });
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const uid = user.uid;
+    console.log(uid);
+    caloriedata.value.id.push(uid);
+  } else {
+    // User is signed out
+  }
+});
+
 async function addcaloriedata() {
   try {
     const docRef = await addDoc(collection(db, "Calorie"), caloriedata.value);
@@ -64,6 +78,7 @@ async function addcaloriedata() {
             </div>
             <div class="d-flex justify-content-center">
               <a class="btn btn-primary" @click="addcaloriedata()">ยืนยัน</a>
+              <a class="btn btn-primary" @click="showid()">id</a>
             </div>
           </div>
         </div>

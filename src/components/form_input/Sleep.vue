@@ -2,8 +2,19 @@
 import { ref } from "vue";
 import { db } from "/src/firebase.js";
 import { collection, addDoc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+const auth = getAuth();
+const sleepdata = ref({ hour: 0, minute: 0, id: [] });
 
-const sleepdata = ref({ hour: 0, minute: 0 });
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const uid = user.uid;
+    console.log(uid);
+    sleepdata.value.id.push(uid);
+  } else {
+    // User is signed out
+  }
+});
 
 async function addsleepdata() {
   try {

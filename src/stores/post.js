@@ -41,7 +41,7 @@ export const usepostStore = defineStore('counter', () => {
     getpost()
   }
   const getpost = async () => {
-    Posteds.value = []
+    Posteds.value = [];
     const querySnapshot = await getDocs(query(collection(db, 'posts'), orderBy('time', 'desc')))
     querySnapshot.forEach((doc) => {
       obj_post = {

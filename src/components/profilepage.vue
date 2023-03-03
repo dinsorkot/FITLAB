@@ -1,3 +1,10 @@
+<script setup>
+import { useProfileStore } from '../stores/profile'
+const store = useProfileStore();
+const { getuser , username } = store;
+var usm = username;
+getuser();
+</script>
 <template>
     <div class="container">
         <div class="container profile profile-user d-flex align-items-center position-relative">
@@ -20,7 +27,7 @@
                 </svg>
             </div>
             <div class="ps-3 text-light">
-                <h1>username (age)</h1>
+                <h1>{{ usm }} (age)</h1>
                 <h4>sex</h4>
                 <h6>weight (kg) , height (cm)</h6>
             </div>

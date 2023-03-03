@@ -18,7 +18,7 @@ const username = ref();
 <template>
   <div class="" style="height: 100vh">
     <div class="row w-100 h-100 text-light m-0">
-      <div class="col-sm-6 " style="background-color: #272727">logo</div>
+      <div class="col-sm-6 " style="background-color: #272727"><div class="logo h-100" ><img src="../assets/Logo.png" style="width: 350px;height:500px;"></div></div>
       <div class="col-sm-6 ">
         <div class="row h-100">
           <div class="col"></div>
@@ -159,5 +159,10 @@ input::placeholder {
   color: white;
   text-align: center;
   text-justify: center;
+}
+.logo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

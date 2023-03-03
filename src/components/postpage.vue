@@ -1,4 +1,5 @@
 <script setup>
+
 import { ref, onMounted } from 'vue';
 import { usepostStore } from '../stores/post';
 
@@ -13,6 +14,7 @@ onMounted(() => {
     getpost();
     getuser();
 })
+
 
 </script>
 <template>

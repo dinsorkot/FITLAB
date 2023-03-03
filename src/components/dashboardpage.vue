@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted } from 'vue';
+import selectedView from "../components/formpage.vue";
 
 onMounted(() => {
     var options = {
@@ -167,6 +168,21 @@ onMounted(() => {
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="container mt-3">
+        <div class="row">
+            <div class="col">วัน/เดือน/ปี</div>
+            <div class="col">Calories</div>
+            <div class="col">exercise</div>
+            <div class="col">sleep</div>
+        </div>
+        <div class="row">
+            <div class="col">วัน/เดือน/ปี</div>
+            <div class="col">{{ selectedView.Calories }}</div>
+            <div class="col">{{selectedView.Exercise}}</div>
+            <div class="col">{{selectedView.Sleep}}</div>
+        </div>
+        
         </div>
 
     </div>

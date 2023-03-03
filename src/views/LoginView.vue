@@ -16,7 +16,7 @@ const router = useRouter();
 <template>
   <div class="" style="height: 100vh;">
     <div class="row w-100 h-100 text-light m-0">
-      <div class="col-sm-6 " style="background-color: #272727">logo</div>
+      <div class="col-sm-6 " style="background-color: #272727"><div class="logo h-100" ><img src="../assets/Logo.png" style="width: 350px;height:350px;"></div></div>
       <div class="col-sm-6 ">
         <div class="row h-100">
           <div class="col"></div>
@@ -107,5 +107,11 @@ input::placeholder {
   width: 240px;
   text-align: start;
   padding-left: 20px;
+
+}
+.logo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

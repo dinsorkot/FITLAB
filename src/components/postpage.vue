@@ -14,7 +14,7 @@ onMounted(() => {
     getpost();
     getuser();
 })
->>>>>>> c48810bc5c371fa502b87feb400e4b93a39f5d36
+
 
 </script>
 <template>

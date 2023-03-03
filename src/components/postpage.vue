@@ -1,6 +1,5 @@
 <script setup>
-<<<<<<< HEAD
-=======
+
 import { ref, onMounted } from 'vue';
 import { usepostStore } from '../stores/post';
 

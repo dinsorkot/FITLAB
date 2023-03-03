@@ -1,10 +1,13 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { defineStore } from 'pinia'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
+import { db } from '../firebase'
 
 export const useCreateUser = defineStore('counter', () => {
-  const auth = getAuth()
+  const auth = getAuth();
+  const router = useRouter();
   const createUser = (email, password, username, sex, age, weight, heigh) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -12,13 +15,18 @@ export const useCreateUser = defineStore('counter', () => {
         const user = userCredential.user
         createUsername(user.uid, user.email, password, username, sex, age, weight, heigh)
         // ...
+        console.log(user.uid)
         console.log('created')
+        alertify.alert('Sign in ', 'Created', function () {
+          alertify.success('Ok')
+          router.push('/')
+        })
       })
       .catch((error) => {
         const errorCode = error.code
         const errorMessage = error.message
         // ..
-        console.log(errorMessage);
+        console.log(errorMessage)
       })
   }
 

@@ -10,8 +10,8 @@ const { createUser } = storeC
 const age = ref(20);
 const weight = ref(50);
 const height = ref(170);
-const sex = ref()
-const Email = ref()
+const sex = ref();
+const Email = ref();
 const Password = ref();
 const username = ref();
 </script>
@@ -113,7 +113,7 @@ const username = ref();
               </div>
               <div class="mb-5">
                 <button class="btn btn-light rounded-pill" style="height: 50px; width: 150px"
-                  @click="createUser(Email.value, Password.value, username.value, sex.vale, age.value, weight.value, height.value)">
+                  @click="createUser(Email, Password, username, sex, age, weight, height)">
                   sign in
                 </button>
               </div>

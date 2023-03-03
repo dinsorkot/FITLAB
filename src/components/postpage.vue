@@ -1,20 +1,28 @@
 <script setup>
 
 import { ref, onMounted } from 'vue';
-import { usepostStore } from '../stores/post';
+import { usePostStore } from '../stores/post';
 
 const now = new Date();
 const time = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Bangkok', hour12: true })
-const store = usepostStore();
-const { getuser, createpost, getpost, Posteds } = store;
+const timeComponents = time.split(':');
+const hour = parseInt(timeComponents[0]);
+const minute = parseInt(timeComponents[1]);
+const second = parseInt(timeComponents[2].substr(0, 2)); // extract only the digits of the second component
+const timeInNumber = hour * 10000 + minute * 100 + second;
+const store = usePostStore();
+const { getUser, createPost, getPosted, posteds } = store;
 
-const post = ref();
+const post = ref('');
 
+const handleCreatePost = () => {
+    createPost(post.value, time, timeInNumber)
+    post.value = ''
+}
 onMounted(() => {
-    getpost();
-    getuser();
+    getUser();
+    getPosted();
 })
-
 
 </script>
 <template>
@@ -43,10 +51,10 @@ onMounted(() => {
             <label for="floatingInput">what happend today ?</label>
         </div>
         <div class="ps-4">
-            <button class="btn btn-dark" @click="createpost(post, time)">post</button>
+            <button class="btn btn-dark" @click="handleCreatePost">post</button>
         </div>
     </div>
-    <div class="posted post-user mt-3 " v-for="(value, key) in Posteds" :key="key">
+    <div class="posted post-user mt-3 " v-for="post  in posteds" :key="post.uid">
         <div class="d-flex">
             <div class="card box box-user d-flex justify-content-center align-items-center">
                 <svg viewBox="-0.5 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -68,16 +76,16 @@ onMounted(() => {
             </div>
             <div class="usm">
                 <div class="text-light">
-                    <h3> {{ value.username }} </h3>
+                    <h3> {{ post.username }} </h3>
                 </div>
                 <div class="text-light">
-                    <h6 style="font-size: 15px;">{{ value.time }}</h6>
+                    <h6 style="font-size: 15px;">{{ post.time }}</h6>
                 </div>
             </div>
         </div>
         <div class="d-flex justify-content-center align-items-center text-light">
             <div class=" card w-75" style="background-color: transparent; border:none;margin-top:10px;">
-                {{ value.post }}
+                {{ post.post }}
             </div>
         </div>
     </div>

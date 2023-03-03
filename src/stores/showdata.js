@@ -17,7 +17,6 @@ export const Data = defineStore('showdata', () => {
     const querySnapshot = await getDocs(query(collection(db, 'Calorie')))
     querySnapshot.forEach((doc) => {
       Caloriedata = {
-        time: doc.data().time,
         Calorie: doc.data().numcalorie
       }
       showc.value.push(Caloriedata)
@@ -26,6 +25,33 @@ export const Data = defineStore('showdata', () => {
   }
 
   return { Calorie,showc }
+
+ 
 })
 
 
+export const EData = defineStore('showdata', () => {
+  var showc = ref([]);
+  var Caloriedata = {};
+
+  /*const doubleCount = computed(() => count.value * 2)
+  function increment() {
+    count.value++
+  }*/
+
+  const Calorie = async () => {
+    showc.value = [];
+    const querySnapshot = await getDocs(query(collection(db, 'Calorie')))
+    querySnapshot.forEach((doc) => {
+      Caloriedata = {
+        Calorie: doc.data().numcalorie
+      }
+      showc.value.push(Caloriedata)
+    })
+    console.log(showc.value);
+  }
+
+  return { Calorie,showc }
+
+ 
+})

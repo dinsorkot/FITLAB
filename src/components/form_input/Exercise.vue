@@ -4,17 +4,21 @@ import { storeToRefs } from 'pinia'
 import { useExerciseStore } from '../../stores/dataExercise'
 import { db } from "/src/firebase.js";
 import { collection, addDoc } from "firebase/firestore";
-import { async } from '@firebase/util';
 var selectedNumber = ref(0);
 const store = useExerciseStore()
 const { data_hour } = storeToRefs(store);
-const exercisedata = ref({type:"" , hour:0 , minute:0})
+const exercisedata = ref({type:({}) , hour:0 , minute:0})
+
+function showdata(){
+    console.log(exercisedata.value);
+}
+
 
 async function addexercisedata(){
     try {
     const docRef = await addDoc(collection(db, "Exercise"), exercisedata.value);
     console.log("Document written with ID: ", docRef.id);
-    alertify.alert('Alert Title', 'Alert Message!');
+    alertify.alert('FITLAB', 'Success');
   } catch (e) {
     console.error("Error adding document: ", e);
   }
@@ -40,21 +44,23 @@ async function addexercisedata(){
                             <div class="mb-3 in-form">
                                 <label for="exampleFormControlInput1" class="form-label">ประเภท</label>
                                 <select class="form-select" aria-label="Default select example" v-model="exercisedata.type">
-                                    <option v-for="key, value, n in data_hour" :key="n" :value="n">{{ key.name }}</option>
+                                    <option v-for="key, value, n in data_hour" :key="n" :value="key">{{ key.name }}</option>
                                 </select>
                             </div>
                             <div class="mb-3 in-form">
                                 <label for="calorry" class="form-label">จำนวนแคลลอรี่</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Recipient's username"
+                                    <input type="number" class="form-control" placeholder="Recipient's username"
                                         aria-label="Recipient's username" aria-describedby="basic-addon2" spellcheck="false"
-                                        data-ms-editor="true" v-model="exercisedata.hour">
+                                        data-ms-editor="true"
+                                        v-model="exercisedata.hour" >
                                     <span class="input-group-text" id="basic-addon2">ชั่วโมง</span>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Recipient's username"
+                                    <input type="number" class="form-control" placeholder="Recipient's username"
                                         aria-label="Recipient's username" aria-describedby="basic-addon2" spellcheck="false"
-                                        data-ms-editor="true" v-model="exercisedata.minute">
+                                        data-ms-editor="true"
+                                        v-model="exercisedata.minute" >
                                     <span class="input-group-text" id="basic-addon2">นาที</span>
                                 </div>
                             </div>

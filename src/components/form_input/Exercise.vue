@@ -2,9 +2,23 @@
 import { ref } from 'vue';
 import { storeToRefs } from 'pinia'
 import { useExerciseStore } from '../../stores/dataExercise'
+import { db } from "/src/firebase.js";
+import { collection, addDoc } from "firebase/firestore";
+import { async } from '@firebase/util';
 var selectedNumber = ref(0);
 const store = useExerciseStore()
 const { data_hour } = storeToRefs(store);
+const exercisedata = ref({type:"" , hour:0 , minute:0})
+
+async function addexercisedata(){
+    try {
+    const docRef = await addDoc(collection(db, "Exercise"), exercisedata.value);
+    console.log("Document written with ID: ", docRef.id);
+    alertify.alert('Alert Title', 'Alert Message!');
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
 </script>
 <template>
     <div class="container">
@@ -25,7 +39,7 @@ const { data_hour } = storeToRefs(store);
                         <div>
                             <div class="mb-3 in-form">
                                 <label for="exampleFormControlInput1" class="form-label">ประเภท</label>
-                                <select class="form-select" aria-label="Default select example">
+                                <select class="form-select" aria-label="Default select example" v-model="exercisedata.type">
                                     <option v-for="key, value, n in data_hour" :key="n" :value="n">{{ key.name }}</option>
                                 </select>
                             </div>
@@ -34,19 +48,19 @@ const { data_hour } = storeToRefs(store);
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" placeholder="Recipient's username"
                                         aria-label="Recipient's username" aria-describedby="basic-addon2" spellcheck="false"
-                                        data-ms-editor="true">
+                                        data-ms-editor="true" v-model="exercisedata.hour">
                                     <span class="input-group-text" id="basic-addon2">ชั่วโมง</span>
                                 </div>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" placeholder="Recipient's username"
                                         aria-label="Recipient's username" aria-describedby="basic-addon2" spellcheck="false"
-                                        data-ms-editor="true">
+                                        data-ms-editor="true" v-model="exercisedata.minute">
                                     <span class="input-group-text" id="basic-addon2">นาที</span>
                                 </div>
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <a class="btn btn-primary">ยืนยัน</a>
+                            <a class="btn btn-primary" @click="addexercisedata()">ยืนยัน</a>
                         </div>
                     </div>
                 </div>

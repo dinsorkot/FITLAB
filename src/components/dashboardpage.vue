@@ -1,6 +1,14 @@
 <script setup>
 import { onMounted } from 'vue';
-import selectedView from "../components/formpage.vue";
+import {Data} from "../stores/showdata";
+const now = new Date();
+const time = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Bangkok', hour12: true })
+const data = Data();
+const {Calorie,showc} = data;
+onMounted(() => {
+    Calorie();
+    
+})
 
 onMounted(() => {
     var options = {
@@ -171,18 +179,21 @@ onMounted(() => {
         </div>
         <div class="container mt-3">
         <div class="row">
-            <div class="col">วัน/เดือน/ปี</div>
+            
             <div class="col">Calories</div>
             <div class="col">exercise</div>
             <div class="col">sleep</div>
-        </div>
-        <div class="row">
             <div class="col">วัน/เดือน/ปี</div>
-            <div class="col">{{ selectedView.Calories }}</div>
-            <div class="col">{{selectedView.Exercise}}</div>
-            <div class="col">{{selectedView.Sleep}}</div>
         </div>
-        
+        <div v-for="(value, key) in showc" :key="key">
+        <div class="row" >
+            
+            <div class="col">{{ value.Calorie }}</div>
+            <div class="col">{{0}}</div>
+            <div class="col">{{0}}</div>
+            <div class="col">{{time}}</div>
+        </div>
+    </div>
         </div>
 
     </div>

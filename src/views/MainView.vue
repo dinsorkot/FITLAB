@@ -56,7 +56,6 @@ const showSetting = () => {
   console.log('showSetting');
 }
 
-
 </script>
 <template>
   <div>

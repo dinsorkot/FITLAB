@@ -1,13 +1,14 @@
 <script setup>
 import { onMounted } from 'vue';
 import {Data} from "../stores/showdata";
-const now = new Date();
-const time = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Bangkok', hour12: true })
+/*const now = new Date();
+const time = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Bangkok', hour12: true })*/
 const data = Data();
-const {Calorie,showc} = data;
+const {Calorie,Exercise,Sleep,showe,shows,showc} = data;
 onMounted(() => {
     Calorie();
-    
+    Exercise();
+    Sleep();
 })
 
 onMounted(() => {
@@ -185,18 +186,19 @@ onMounted(() => {
             <div class="col">sleep</div>
             <div class="col">วัน/เดือน/ปี</div>
         </div>
-        <div v-for="(value, key) in showc" :key="key">
+        <div >
         <div class="row" >
+            <div class="col"><li v-for="(value) in showc" :key="value.Date" >{{ value.Calorie}}</li></div>
+            <div class="col"><li v-for="(value,key) in showe" :key="key">{{ value.ehour }}</li></div>
+            <div class="col"><li v-for="(value,key) in shows" :key="key">{{value.shour }}</li></div>
+            <div class="col"><li v-for="(value,key) in showc" :key="key">{{ value.Date}}</li></div>
             
-            <div class="col">{{ value.Calorie }}</div>
-            <div class="col">{{0}}</div>
-            <div class="col">{{0}}</div>
-            <div class="col">{{time}}</div>
         </div>
     </div>
-        </div>
-
     </div>
+        </div>
+        
+       
 </template>
   
 <style scoped>

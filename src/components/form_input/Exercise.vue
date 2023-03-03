@@ -9,13 +9,13 @@ var selectedNumber = ref(0);
 const store = useExerciseStore();
 const { data_hour } = storeToRefs(store);
 const auth = getAuth();
-const exercisedata = ref({ type: {}, hour: 0, minute: 0, id: [] });
-
+const exercisedata = ref({ type: {}, date: "", time: "", hour: 0, minute: 0 });
+const uid = ref();
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    const uid = user.uid;
+    uid.value = user.uid;
     console.log(uid);
-    exercisedata.value.id.push(uid);
+    exercisedata.value.id = uid;
   } else {
     // User is signed out
   }
@@ -64,6 +64,30 @@ async function addexercisedata() {
               </div>
               <div class="mb-3 in-form">
                 <label for="calorry" class="form-label">จำนวนแคลลอรี่</label>
+                <div class="input-group mb-3">
+                  <input
+                    type="date"
+                    class="form-control"
+                    placeholder="Recipient's username"
+                    aria-label="Recipient's username"
+                    aria-describedby="basic-addon2"
+                    spellcheck="false"
+                    data-ms-editor="true"
+                    v-model="exercisedata.date"
+                  />
+                </div>
+                <div class="input-group mb-3">
+                  <input
+                    type="time"
+                    class="form-control"
+                    placeholder="Recipient's username"
+                    aria-label="Recipient's username"
+                    aria-describedby="basic-addon2"
+                    spellcheck="false"
+                    data-ms-editor="true"
+                    v-model="exercisedata.time"
+                  />
+                </div>
                 <div class="input-group mb-3">
                   <input
                     type="number"

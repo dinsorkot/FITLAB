@@ -4,13 +4,14 @@ import { db } from "/src/firebase.js";
 import { collection, addDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 const auth = getAuth();
-const sleepdata = ref({ hour: 0, minute: 0, id: [] });
+const sleepdata = ref({ date: "", hour: 0, minute: 0 });
+const uid = ref();
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    const uid = user.uid;
+    uid.value = user.uid;
     console.log(uid);
-    sleepdata.value.id.push(uid);
+    sleepdata.value.id = uid;
   } else {
     // User is signed out
   }
@@ -34,7 +35,19 @@ async function addsleepdata() {
         <h5 class="card-title">การนอน</h5>
         <div>
           <div class="mb-3 in-form">
-            <label for="calorry" class="form-label">กรอกเวลาที่นอน</label>
+            <label for="calorry" class="form-label">กรอกวันและเวลาที่นอน</label>
+            <div class="input-group mb-3">
+              <input
+                type="date"
+                class="form-control"
+                placeholder="Recipient's username"
+                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+                spellcheck="false"
+                data-ms-editor="true"
+                v-model="sleepdata.date"
+              />
+            </div>
             <div class="input-group mb-3">
               <input
                 type="number"

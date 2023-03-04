@@ -58,6 +58,8 @@ async function addsleepdata() {
                 spellcheck="false"
                 data-ms-editor="true"
                 v-model="sleepdata.hour"
+                min="0"
+                max="24"
               />
               <span class="input-group-text" id="basic-addon2">ชั่วโมง</span>
             </div>
@@ -71,6 +73,8 @@ async function addsleepdata() {
                 spellcheck="false"
                 data-ms-editor="true"
                 v-model="sleepdata.minute"
+                min="0"
+                max="59"
               />
               <span class="input-group-text" id="basic-addon2">นาที</span>
             </div>

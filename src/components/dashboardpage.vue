@@ -1,15 +1,15 @@
 <script setup>
 import { onMounted } from 'vue';
 import {Data} from "../stores/showdata";
-/*const now = new Date();
-const time = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Bangkok', hour12: true })*/
 const data = Data();
-const {Calorie,Exercise,Sleep,showe,shows,showc} = data;
+const {Calorie,Exercise,Sleep,showe,shows,showc,q,sumc,sumeh,sumem,sumsh,sumsm} = data;
+console.log(sumc)
 onMounted(() => {
     Calorie();
     Exercise();
     Sleep();
 })
+
 
 </script>
 <template>
@@ -42,7 +42,7 @@ onMounted(() => {
                             </div>
                             <div>
                                 <h4>Calories</h4>
-                                <h2>1234</h2>
+                                <h2>{{sumc}} Calorie</h2>
                                 <h6>DAILY AVERAGE</h6>
                             </div>
                         </div>
@@ -70,8 +70,8 @@ onMounted(() => {
                                 </svg>
                             </div>
                             <div>
-                                <h4>Calories</h4>
-                                <h2>1234</h2>
+                                <h4>Exercise</h4>
+                                <h2>{{sumeh+(sumem/60)}} hour</h2>
                                 <h6>DAILY AVERAGE</h6>
                             </div>
                         </div>
@@ -99,8 +99,8 @@ onMounted(() => {
                                 </svg>
                             </div>
                             <div>
-                                <h4>Calories</h4>
-                                <h2>1234</h2>
+                                <h4>Sleep</h4>
+                                <h2>{{sumsh+(sumsm/60)}} hour</h2>
                                 <h6>DAILY AVERAGE</h6>
                             </div>
                         </div>
@@ -117,22 +117,23 @@ onMounted(() => {
             <div class="col">sleep</div>
             <div class="col">วัน/เดือน/ปี</div>
         </div>
-        <div >
+        <div v-for="(itemdate) in q" :key="itemdate">
         <div class="row" >
-            <div class="col"><li v-for="(value) in showc" :key="value.Date" >{{ value.Calorie}}</li></div>
-            <div class="col"><li v-for="(value,key) in showe" :key="key">{{ value.ehour }}</li></div>
-            <div class="col"><li v-for="(value,key) in shows" :key="key">{{value.shour }}</li></div>
-            <div class="col"><li v-for="(value,key) in showc" :key="key">{{ value.Date}}</li></div>
+            <div class="col"><div  v-for ="(valuesc,key) in showc" :key="key"><div v-if="itemdate==valuesc.Date">{{ valuesc.food+" : "+valuesc.Calorie}}</div></div></div>
+            <div class="col"><div  v-for ="(valuese,key) in showe" :key="key"><div v-if="itemdate==valuese.Date ">{{ valuese.ehour+" : "+valuese.eminute}}</div></div></div>
+            <div class="col" ><div v-for ="(valuess,key) in shows" :key="key"><div v-if="itemdate==valuess.Date">{{ valuess.shour+" : "+valuess.sminute}}</div></div></div>
+            <div class="col">{{ itemdate }}</div>
             
         </div>
     </div>
     </div>
         </div>
         
-       
+      
 </template>
-  
+
 <style scoped>
+
 .dsb {
     height: 200px;
     background-color: #1E1E1E;

@@ -1,31 +1,26 @@
+<script setup>
+import { ref } from 'vue';
+import { useUpdateEP } from '../stores/updateEmailPassword'
+
+const store = useUpdateEP();
+
+const { DeleteUser,signOuted } = store
+
+</script>
 <template>
     <div class="container">
-        <div class="container mb-3 setting setting-user d-flex align-items-center position-relative">
+        <div class="container mb-3 setting setting-user d-flex align-items-center position-relative" data-bs-toggle="modal"
+            data-bs-target="#Email">
             <div class="card box box-user d-flex justify-content-center align-items-center">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#898989" width="64">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <g id="style=linear">
-                            <g id="email">
-                                <path id="vector"
-                                    d="M17 20.5H7C4 20.5 2 19 2 15.5V8.5C2 5 4 3.5 7 3.5H17C20 3.5 22 5 22 8.5V15.5C22 19 20 20.5 17 20.5Z"
-                                    stroke="#898989" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                                    stroke-linejoin="round"></path>
-                                <path id="vector_2"
-                                    d="M18.7698 7.7688L13.2228 12.0551C12.5025 12.6116 11.4973 12.6116 10.777 12.0551L5.22998 7.7688"
-                                    stroke="#898989" stroke-width="1.5" stroke-linecap="round"></path>
-                            </g>
-                        </g>
-                    </g>
-                </svg>
-            </div>
-            <div class="ps-3 text-light">
-                <h1>Change Email</h1>
-                <h6>before email</h6>
-            </div>
+                <img src="https://img.icons8.com/ios/50/898989/del-key.png" width="64" />
         </div>
-        <div class="container mb-3 setting setting-user d-flex align-items-center position-relative">
+        <div class="ps-3 text-light">
+            <h1>Delete accout</h1>
+        </div>
+    </div>
+    <!--
+        <div class="container mb-3 setting setting-user d-flex align-items-center position-relative" data-bs-toggle="modal"
+        data-bs-target="#Password">
             <div class="card box box-user d-flex justify-content-center align-items-center">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="64">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -45,22 +40,92 @@
                 <h6>before length password</h6>
             </div>
         </div>
-        <div class="container exit d-flex justify-content-center align-items-center ">
+            -->
+        <div class="container exit d-flex justify-content-center align-items-center " @click="signOuted()">
             <div class="exit-full d-flex justify-content-center align-items-center">
                 <svg fill="#898989" viewBox="0 0 16 16" id="home-16px" xmlns="http://www.w3.org/2000/svg" width="30">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path id="Path_77" data-name="Path 77"
-                            d="M-13,11.5v2A2.5,2.5,0,0,1-15.5,16h-4A2.5,2.5,0,0,1-22,13.5V2.5A2.5,2.5,0,0,1-19.5,0h4A2.5,2.5,0,0,1-13,2.5v2a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5v-2A1.5,1.5,0,0,0-15.5,1h-4A1.5,1.5,0,0,0-21,2.5v11A1.5,1.5,0,0,0-19.5,15h4A1.5,1.5,0,0,0-14,13.5v-2a.5.5,0,0,1,.5-.5A.5.5,0,0,1-13,11.5Zm6.962-3.809a.505.505,0,0,0,0-.382.518.518,0,0,0-.109-.163l-4-4a.5.5,0,0,0-.708,0,.5.5,0,0,0,0,.708L-7.707,7H-17.5a.5.5,0,0,0-.5.5.5.5,0,0,0,.5.5h9.793l-3.147,3.146a.5.5,0,0,0,0,.708A.5.5,0,0,0-10.5,12a.5.5,0,0,0,.354-.146l4-4A.518.518,0,0,0-6.038,7.691Z"
-                            transform="translate(22)"></path>
-                    </g>
-                </svg>
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path id="Path_77" data-name="Path 77"
+                                    d="M-13,11.5v2A2.5,2.5,0,0,1-15.5,16h-4A2.5,2.5,0,0,1-22,13.5V2.5A2.5,2.5,0,0,1-19.5,0h4A2.5,2.5,0,0,1-13,2.5v2a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5v-2A1.5,1.5,0,0,0-15.5,1h-4A1.5,1.5,0,0,0-21,2.5v11A1.5,1.5,0,0,0-19.5,15h4A1.5,1.5,0,0,0-14,13.5v-2a.5.5,0,0,1,.5-.5A.5.5,0,0,1-13,11.5Zm6.962-3.809a.505.505,0,0,0,0-.382.518.518,0,0,0-.109-.163l-4-4a.5.5,0,0,0-.708,0,.5.5,0,0,0,0,.708L-7.707,7H-17.5a.5.5,0,0,0-.5.5.5.5,0,0,0,.5.5h9.793l-3.147,3.146a.5.5,0,0,0,0,.708A.5.5,0,0,0-10.5,12a.5.5,0,0,0,.354-.146l4-4A.518.518,0,0,0-6.038,7.691Z"
+                                    transform="translate(22)"></path>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
+    </div>
+
+    <div class="modal fade " id="Email" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-light " style="background-color: #111111">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Delete accout</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="m-5">
+                        Are you confirm to delete accout?
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" @click="DeleteUser()" data-bs-dismiss="modal">Confirm</button>
+                    
+                </div>
             </div>
         </div>
     </div>
+    <!--
+    <div class="modal fade " id="Password" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-light " style="background-color: #111111">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Change password</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="m-5">
+                        <form class="form-floating">
+                            <input type="text" class="form-control rounded-pill border-0 input_EPU" id="email"
+                                placeholder="email" v-model="Password">
+                            <label class="ps-4" for="email">Password</label>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" @click="updatedP(Password.value)">Save
+                        changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
 </template>
 <style scoped>
+.input_EPU {
+    height: 50px;
+}
+
+input {
+    background-color: #272727;
+    color: white;
+    text-align: center;
+}
+
+input:focus {
+    background-color: #272727;
+    color: white;
+    text-align: center;
+}
+
+input::placeholder {
+    color: white;
+    text-align: center;
+}
+
 .exit {
     position: relative;
     height: 200px;
@@ -154,4 +219,5 @@ h6 {
         color: #898989;
         font-size: 10px;
     }
-}</style>
+}
+</style>

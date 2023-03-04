@@ -1,14 +1,29 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { getAuth, onAuthStateChanged, reauthenticateWithRedirect } from 'firebase/auth'
-import { collection, onSnapshot, query, orderBy, deleteDoc, doc } from 'firebase/firestore'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  deleteDoc,
+  where,
+  doc
+} from 'firebase/firestore'
 import { db } from '../firebase'
+import { useRouter } from 'vue-router'
 
-export const useProfileStore = defineStore('Profile', () => {
-  const auth = getAuth()
+export const useInfoStore = defineStore('InfoStore', () => {
   const uid = ref(null)
   const username = ref(null)
   const infoUser = ref({})
+  const posteds = ref([])
+  const postedsUser = ref([])
+  const auth = getAuth()
+  const count = ref(false)
+  const router = useRouter()
+
   const getUserG = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -21,25 +36,42 @@ export const useProfileStore = defineStore('Profile', () => {
       }
     })
   }
+
   const getUserE = () => {
     const collec = collection(db, 'users')
     onSnapshot(collec, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
         if (doc.id == uid.value) {
           username.value = doc.data().username
-          console.log(username.value)
           infoUser.value = {
             username: doc.data().username,
             age: doc.data().age,
             sex: doc.data().sex,
             weight: doc.data().weight,
-            height: doc.data().height
+            height: doc.data().heigh
           }
-          console.log(infoUser.value);
         }
       })
     })
   }
+
+  const createPost = async (post, tm, stm) => {
+    try {
+      await addDoc(collection(db, 'posts'), {
+        id: uid.value,
+        username: username.value,
+        posted: post,
+        time: tm,
+        usetime: stm
+      })
+      console.log('Post created successfully')
+      count.value = true
+      getPosted()
+    } catch (error) {
+      console.error('Error adding document:', error)
+    }
+  }
+
   const deletePost = async (postId) => {
     try {
       await deleteDoc(doc(db, 'posts', postId))
@@ -74,9 +106,51 @@ export const useProfileStore = defineStore('Profile', () => {
     })
   }
 
+  const getPostedUser = () => {
+    if (count.value) {
+      posteds.value = []
+      router.go(0)
+    }
+    const q = query(
+      collection(db, 'posts'),
+      where('id', '==', uid.value),
+      orderBy('usetime', 'desc')
+    )
+    onSnapshot(q, (querySnapshot) => {
+      querySnapshot.docChanges().forEach((change) => {
+        if (change.type === 'added') {
+          const doc = change.doc
+          const post = {
+            uid: doc.id,
+            id: doc.data().id,
+            time: doc.data().time,
+            post: doc.data().posted,
+            username: doc.data().username
+          }
+          // push the post object into the postedsUser array
+          postedsUser.value.push(post)
+        }
+      })
+    })
+  }
+  const userData = () => {
+    return uid.value
+  }
+
   const getInfoUser = () => {
     return infoUser.value
   }
 
-  return { getUserG, getUserE, getInfoUser }
+  return {
+    getUserE,
+    userData,
+    posteds,
+    postedsUser,
+    getUserG,
+    createPost,
+    getPostedUser,
+    deletePost,
+    getPosted,
+    getInfoUser
+  }
 })

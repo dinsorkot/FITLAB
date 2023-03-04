@@ -42,7 +42,7 @@ onMounted(() => {
                             </div>
                             <div>
                                 <h4>Calories</h4>
-                                <h2>{{sumc}}</h2>
+                                <h2>{{sumc}} Calorie</h2>
                                 <h6>DAILY AVERAGE</h6>
                             </div>
                         </div>
@@ -71,7 +71,7 @@ onMounted(() => {
                             </div>
                             <div>
                                 <h4>Exercise</h4>
-                                <h2>{{sumeh+(sumem/60)}}</h2>
+                                <h2>{{sumeh+(sumem/60)}} hour</h2>
                                 <h6>DAILY AVERAGE</h6>
                             </div>
                         </div>
@@ -100,7 +100,7 @@ onMounted(() => {
                             </div>
                             <div>
                                 <h4>Sleep</h4>
-                                <h2>{{sumsh+(sumsm/60)}}</h2>
+                                <h2>{{sumsh+(sumsm/60)}} hour</h2>
                                 <h6>DAILY AVERAGE</h6>
                             </div>
                         </div>

@@ -96,7 +96,7 @@ const username = ref();
                   max="300" v-model="weight">
                 <form class="form-floating">
                   <input type="text" class="form-control rounded-pill border-0 input_EPU" id="weight"
-                    style="font-size: 20px;" placeholder="weight"  v-model="age">
+                    style="font-size: 20px;" placeholder="weight"  v-model="weight">
                   <label class="ps-4" for="weight">Weight ( kg )</label>
                 </form>
               </div>

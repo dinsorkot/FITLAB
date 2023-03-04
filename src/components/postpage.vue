@@ -2,7 +2,7 @@
 
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { usePostStore } from '../stores/post';
+import { useInfoStore } from '../stores/infoUser';
 
 const now = new Date();
 const time = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Bangkok', hour12: true })
@@ -14,18 +14,24 @@ const timeInNumber = hour * 10000 + minute * 100 + second;
 
 const router = useRouter();
 
-const store = usePostStore();
-const { getUser, createPost, getPosted,deletePost,user_uid, posteds } = store;
+const store = useInfoStore();
+const { getUserE, getUserG, createPost, getPosted, deletePost, userData, posteds } = store;
 
 const post = ref('');
+
+var id_user = ref(null)
+
+getUserG();
+getUserE();
+setTimeout(function () {
+    getPosted();
+    id_user.value = userData();
+}, 3000);
 
 const handleCreatePost = () => {
     createPost(post.value, time, timeInNumber)
     post.value = ''
 }
-console.log(typeof(user_uid.value));
-getUser()
-getPosted();
 
 const edit = (uid) => {
     alertify.confirm("Are you want to delete post?",
@@ -103,7 +109,8 @@ const edit = (uid) => {
             </div>
         </div>
         <div class="position-absolute" style="right:10px; top:10px;">
-            <button class="" style="border: transparent; background-color:transparent;" @click="edit(post.uid)" v-if="post.id == uid">
+            <button class="" style="border: transparent; background-color:transparent;" @click="edit(post.uid)"
+                v-if="post.id == id_user">
                 <svg fill="#898989" viewBox="0 0 32 32" enable-background="new 0 0 32 32" id="Glyph" version="1.1"
                     xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                     stroke="#898989" width="32">

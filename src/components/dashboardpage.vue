@@ -7,11 +7,8 @@ const data = Data();
 const {Calorie,Exercise,Sleep,showe,shows,showc} = data;
 onMounted(() => {
     Calorie();
-<<<<<<< HEAD
-=======
     Exercise();
     Sleep();
->>>>>>> c1ec36c9828ba5a7a87d5810ad846f7eea61076d
 })
 
 </script>

@@ -74,6 +74,7 @@ async function addexercisedata() {
                     spellcheck="false"
                     data-ms-editor="true"
                     v-model="exercisedata.date"
+                    min="0"
                   />
                 </div>
                 <div class="input-group mb-3">
@@ -111,6 +112,8 @@ async function addexercisedata() {
                     spellcheck="false"
                     data-ms-editor="true"
                     v-model="exercisedata.minute"
+                    min="0"
+                    
                   />
                   <span class="input-group-text" id="basic-addon2">นาที</span>
                 </div>

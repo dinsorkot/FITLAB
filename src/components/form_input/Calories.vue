@@ -97,6 +97,7 @@ async function addcaloriedata() {
                     spellcheck="false"
                     data-ms-editor="true"
                     v-model="caloriedata.numcalorie"
+                    min="0"
                   />
                   <span class="input-group-text" id="basic-addon2">kcal</span>
                 </div>

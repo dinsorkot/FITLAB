@@ -5,6 +5,9 @@ import formpage from '../components/formpage.vue';
 import profilepage from '../components/profilepage.vue';
 import setting from '../components/settingpage.vue'
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const postView = ref(true);
 const dashboardView = ref(false);
@@ -19,6 +22,7 @@ const showPost = () => {
   profileView.value = false;
   settingView.value = false;
   console.log('showPost');
+  router.go(0);
 }
 const showDashBoard = () => {
   postView.value = false;
@@ -27,6 +31,7 @@ const showDashBoard = () => {
   profileView.value = false;
   settingView.value = false;
   console.log('showDashBoard');
+
 }
 
 const showForm = () => {
@@ -36,6 +41,7 @@ const showForm = () => {
   profileView.value = false;
   settingView.value = false;
   console.log('showForm');
+
 }
 
 const showProfile = () => {
@@ -45,6 +51,7 @@ const showProfile = () => {
   profileView.value = true;
   settingView.value = false;
   console.log('showProfile');
+
 }
 
 const showSetting = () => {
@@ -54,6 +61,7 @@ const showSetting = () => {
   profileView.value = false;
   settingView.value = true;
   console.log('showSetting');
+
 }
 
 </script>

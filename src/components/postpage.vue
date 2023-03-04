@@ -1,6 +1,7 @@
 <script setup>
 
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { usePostStore } from '../stores/post';
 
 const now = new Date();
@@ -10,8 +11,11 @@ const hour = parseInt(timeComponents[0]);
 const minute = parseInt(timeComponents[1]);
 const second = parseInt(timeComponents[2].substr(0, 2)); // extract only the digits of the second component
 const timeInNumber = hour * 10000 + minute * 100 + second;
+
+const router = useRouter();
+
 const store = usePostStore();
-const { getUser, createPost, getPosted, posteds } = store;
+const { getUser, createPost, getPosted,deletePost,user_uid, posteds } = store;
 
 const post = ref('');
 
@@ -19,10 +23,20 @@ const handleCreatePost = () => {
     createPost(post.value, time, timeInNumber)
     post.value = ''
 }
-onMounted(() => {
-    getUser();
-    getPosted();
-})
+console.log(typeof(user_uid.value));
+getUser()
+getPosted();
+
+const edit = (uid) => {
+    alertify.confirm("Are you want to delete post?",
+        function () {
+            deletePost(uid)
+            alertify.success('YES');
+        },
+        function () {
+            alertify.error('NO');
+        });
+}
 
 </script>
 <template>
@@ -54,7 +68,7 @@ onMounted(() => {
             <button class="btn btn-dark" @click="handleCreatePost">post</button>
         </div>
     </div>
-    <div class="posted post-user mt-3 " v-for="post  in posteds" :key="post.uid">
+    <div class="posted post-user mt-3 position-relative" v-for="post in posteds" :key="post.uid">
         <div class="d-flex">
             <div class="card box box-user d-flex justify-content-center align-items-center">
                 <svg viewBox="-0.5 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -87,6 +101,23 @@ onMounted(() => {
             <div class=" card w-75" style="background-color: transparent; border:none;margin-top:10px;">
                 {{ post.post }}
             </div>
+        </div>
+        <div class="position-absolute" style="right:10px; top:10px;">
+            <button class="" style="border: transparent; background-color:transparent;" @click="edit(post.uid)" v-if="post.id == uid">
+                <svg fill="#898989" viewBox="0 0 32 32" enable-background="new 0 0 32 32" id="Glyph" version="1.1"
+                    xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    stroke="#898989" width="32">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path d="M16,13c-1.654,0-3,1.346-3,3s1.346,3,3,3s3-1.346,3-3S17.654,13,16,13z" id="XMLID_287_">
+                        </path>
+                        <path d="M6,13c-1.654,0-3,1.346-3,3s1.346,3,3,3s3-1.346,3-3S7.654,13,6,13z" id="XMLID_289_"></path>
+                        <path d="M26,13c-1.654,0-3,1.346-3,3s1.346,3,3,3s3-1.346,3-3S27.654,13,26,13z" id="XMLID_291_">
+                        </path>
+                    </g>
+                </svg>
+            </button>
         </div>
     </div>
 </template>

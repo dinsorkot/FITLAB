@@ -12,8 +12,11 @@ console.log(q)
 
 onMounted(() => {
     Calorie();
+<<<<<<< HEAD
+=======
     Exercise();
     Sleep();
+>>>>>>> c1ec36c9828ba5a7a87d5810ad846f7eea61076d
 })
 
 

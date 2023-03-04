@@ -1,10 +1,9 @@
-
 <script setup>
 import { onMounted } from 'vue';
 import {Data} from "../stores/showdata";
 const data = Data();
-const {Calorie,Exercise,Sleep,showe,shows,showc,q} = data;
-
+const {Calorie,Exercise,Sleep,showe,shows,showc,q,sumc,sumeh,sumem,sumsh,sumsm} = data;
+console.log(sumc)
 onMounted(() => {
     Calorie();
     Exercise();
@@ -43,7 +42,7 @@ onMounted(() => {
                             </div>
                             <div>
                                 <h4>Calories</h4>
-                                <h2>1234</h2>
+                                <h2>{{sumc}}</h2>
                                 <h6>DAILY AVERAGE</h6>
                             </div>
                         </div>
@@ -71,8 +70,8 @@ onMounted(() => {
                                 </svg>
                             </div>
                             <div>
-                                <h4>Calories</h4>
-                                <h2>1234</h2>
+                                <h4>Exercise</h4>
+                                <h2>{{sumeh+(sumem/60)}}</h2>
                                 <h6>DAILY AVERAGE</h6>
                             </div>
                         </div>
@@ -100,8 +99,8 @@ onMounted(() => {
                                 </svg>
                             </div>
                             <div>
-                                <h4>Calories</h4>
-                                <h2>1234</h2>
+                                <h4>Sleep</h4>
+                                <h2>{{sumsh+(sumsm/60)}}</h2>
                                 <h6>DAILY AVERAGE</h6>
                             </div>
                         </div>
@@ -120,18 +119,17 @@ onMounted(() => {
         </div>
         <div v-for="(itemdate) in q" :key="itemdate">
         <div class="row" >
-            <div class="col"><div  v-for ="(valuesc,key) in showc" :key="key"><div v-if="itemdate==valuesc.Date">{{ valuesc.Calorie}}</div></div></div>
-            <div class="col"><div  v-for ="(valuese,key) in showe" :key="key"><div v-if="itemdate==valuese.Date ">{{ valuese.ehour}}</div></div></div>
-            <div class="col" ><div v-for ="(valuess,key) in shows" :key="key"><div v-if="itemdate==valuess.Date">{{ valuess.shour}}</div></div></div>
+            <div class="col"><div  v-for ="(valuesc,key) in showc" :key="key"><div v-if="itemdate==valuesc.Date">{{ valuesc.food+" : "+valuesc.Calorie}}</div></div></div>
+            <div class="col"><div  v-for ="(valuese,key) in showe" :key="key"><div v-if="itemdate==valuese.Date ">{{ valuese.ehour+" : "+valuese.eminute}}</div></div></div>
+            <div class="col" ><div v-for ="(valuess,key) in shows" :key="key"><div v-if="itemdate==valuess.Date">{{ valuess.shour+" : "+valuess.sminute}}</div></div></div>
             <div class="col">{{ itemdate }}</div>
-            
             
         </div>
     </div>
     </div>
         </div>
         
-       
+      
 </template>
 
 <style scoped>

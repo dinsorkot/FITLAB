@@ -1,22 +1,14 @@
-<!-- eslint-disable vue/no-use-v-if-with-v-for -->
+
 <script setup>
 import { onMounted } from 'vue';
 import {Data} from "../stores/showdata";
-/*const now = new Date();
-const time = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Bangkok', hour12: true })*/
 const data = Data();
 const {Calorie,Exercise,Sleep,showe,shows,showc,q} = data;
-console.log(q)
-
-
 
 onMounted(() => {
     Calorie();
-<<<<<<< HEAD
-=======
     Exercise();
     Sleep();
->>>>>>> c1ec36c9828ba5a7a87d5810ad846f7eea61076d
 })
 
 

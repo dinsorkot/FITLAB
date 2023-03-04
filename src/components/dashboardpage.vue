@@ -7,7 +7,6 @@ const data = Data();
 const {Calorie,showc} = data;
 onMounted(() => {
     Calorie();
-    
 })
 
 </script>

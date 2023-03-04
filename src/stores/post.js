@@ -1,14 +1,13 @@
-import { ref  } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { addDoc, collection, onSnapshot, query, orderBy } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useRouter } from 'vue-router'
-
-
+import { async } from '@firebase/util'
 
 export const usePostStore = defineStore('PostStore', () => {
-  const uid = ref()
+  const user_uid = ref('')
   const username = ref()
   const posteds = ref([])
   var objPost = {}
@@ -18,9 +17,9 @@ export const usePostStore = defineStore('PostStore', () => {
   const getUser = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        uid.value = user.uid
+        user_uid.value = user.uid
         username.value = user.displayName
-        console.log(uid.value)
+        console.log(user_uid.value)
         console.log(username.value)
       } else {
         // User is signed out
@@ -47,9 +46,8 @@ export const usePostStore = defineStore('PostStore', () => {
 
   const postsCollection = collection(db, 'posts')
 
-
   const getPosted = () => {
-    console.log(count)
+    console.log(count.value)
     if (count.value == true) {
       posteds.value = []
       router.go(0)
@@ -61,6 +59,7 @@ export const usePostStore = defineStore('PostStore', () => {
           const doc = change.doc
           objPost = {
             uid: doc.id,
+            id:doc.data().id,
             time: doc.data().time,
             post: doc.data().posted,
             username: doc.data().username
@@ -72,5 +71,9 @@ export const usePostStore = defineStore('PostStore', () => {
     console.log('getPosted')
   }
 
-  return { getUser, createPost, getPosted, posteds }
+  const deletePost = async (uid) => {
+    await deleteDoc(doc(db, 'posts', uid))
+  }
+
+  return { getUser, createPost, getPosted, deletePost,user_uid, posteds }
 })

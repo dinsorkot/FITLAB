@@ -1,16 +1,21 @@
 <script setup>
-import { onMounted } from 'vue';
-import {Data} from "../stores/showdata";
+import { Data } from "../stores/showdata";
+import { ref } from 'vue'
+
 const data = Data();
-const {Calorie,Exercise,Sleep,showe,shows,showc,q,sumc,sumeh,sumem,sumsh,sumsm} = data;
-console.log(sumc)
-onMounted(() => {
-    Calorie();
-    Exercise();
-    Sleep();
-})
+const { User, getuser, Calorie, Exercise, Sleep, showe, shows, showc, q, sumc, sumeh, sumem, sumsh, sumsm, numsh, numc, numeh, dataID } = data;
+getuser();
+Calorie();
+Exercise();
+Sleep();
+console.log("SSSSSS" + showc)
+const userid = ref(null);
 
-
+setTimeout(function () {
+    userid.value = User();
+    console.log("ssssaaaaaa" + userid.value)
+}, 1500)
+console.log("qqqqqqq" + q)
 </script>
 <template>
     <div class="container text-light">
@@ -42,7 +47,7 @@ onMounted(() => {
                             </div>
                             <div>
                                 <h4>Calories</h4>
-                                <h2>{{sumc}} Calorie</h2>
+                                <h2>{{ ((sumc) / numc.length).toFixed(2) }} kcal</h2>
                                 <h6>DAILY AVERAGE</h6>
                             </div>
                         </div>
@@ -71,7 +76,7 @@ onMounted(() => {
                             </div>
                             <div>
                                 <h4>Exercise</h4>
-                                <h2>{{sumeh+(sumem/60)}} hour</h2>
+                                <h2>{{ ((sumeh + (sumem / 60)) / numeh.length).toFixed(2) }} hour</h2>
                                 <h6>DAILY AVERAGE</h6>
                             </div>
                         </div>
@@ -100,7 +105,7 @@ onMounted(() => {
                             </div>
                             <div>
                                 <h4>Sleep</h4>
-                                <h2>{{sumsh+(sumsm/60)}} hour</h2>
+                                <h2>{{ ((sumsh + (sumsm / 60)) / numsh.length).toFixed(2) }} hour</h2>
                                 <h6>DAILY AVERAGE</h6>
                             </div>
                         </div>
@@ -110,30 +115,51 @@ onMounted(() => {
             </div>
         </div>
         <div class="container mt-3">
-        <div class="row">
-            
-            <div class="col">Calories</div>
-            <div class="col">exercise</div>
-            <div class="col">sleep</div>
-            <div class="col">วัน/เดือน/ปี</div>
-        </div>
-        <div v-for="(itemdate) in q" :key="itemdate">
-        <div class="row" >
-            <div class="col"><div  v-for ="(valuesc,key) in showc" :key="key"><div v-if="itemdate==valuesc.Date">{{ valuesc.food+" : "+valuesc.Calorie}}</div></div></div>
-            <div class="col"><div  v-for ="(valuese,key) in showe" :key="key"><div v-if="itemdate==valuese.Date ">{{ valuese.ehour+" : "+valuese.eminute}}</div></div></div>
-            <div class="col" ><div v-for ="(valuess,key) in shows" :key="key"><div v-if="itemdate==valuess.Date">{{ valuess.shour+" : "+valuess.sminute}}</div></div></div>
-            <div class="col">{{ itemdate }}</div>
-            
+            <div class="row">
+
+                <div class="col">Calories</div>
+                <div class="col">exercise</div>
+                <div class="col">sleep</div>
+                <div class="col">วัน/เดือน/ปี</div>
+            </div>
+            <div v-for="(itemdate) in q" :key="itemdate">
+                <div class="row">
+                    <div class="col">
+                        <div v-for="(valuesc, key) in showc" :key="key">
+                            <div v-if="itemdate == valuesc.Date">
+                                <div v-if="valuesc.ID == userid">{{ valuesc.food + " : " + valuesc.Calorie }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div v-for="(valuese, key) in showe" :key="key">
+                            <div v-if="itemdate == valuese.Date">
+                                <div v-if="valuese.ID == userid">{{ valuese.ehour + " : " + valuese.eminute }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div v-for="(valuess, key) in shows" :key="key">
+                            <div v-if="itemdate == valuess.Date">
+                                <div v-if="valuess.ID == userid">{{ valuess.shour + " : " + valuess.sminute }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div v-for="(IdDate, key) in dataID" :key="key">
+                            <div v-if="itemdate == IdDate.Date">
+                                <div v-if="IdDate.ID == userid">{{ IdDate.Date }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
-    </div>
-        </div>
-        
-      
 </template>
 
 <style scoped>
-
 .dsb {
     height: 200px;
     background-color: #1E1E1E;

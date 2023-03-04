@@ -1,15 +1,21 @@
+<!-- eslint-disable vue/no-use-v-if-with-v-for -->
 <script setup>
 import { onMounted } from 'vue';
 import {Data} from "../stores/showdata";
 /*const now = new Date();
 const time = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Bangkok', hour12: true })*/
 const data = Data();
-const {Calorie,Exercise,Sleep,showe,shows,showc} = data;
+const {Calorie,Exercise,Sleep,showe,shows,showc,q} = data;
+console.log(q)
+
+
+
 onMounted(() => {
     Calorie();
     Exercise();
     Sleep();
 })
+
 
 </script>
 <template>
@@ -117,12 +123,13 @@ onMounted(() => {
             <div class="col">sleep</div>
             <div class="col">วัน/เดือน/ปี</div>
         </div>
-        <div >
+        <div v-for="(itemdate) in q" :key="itemdate">
         <div class="row" >
-            <div class="col"><li v-for="(value) in showc" :key="value.Date" >{{ value.Calorie}}</li></div>
-            <div class="col"><li v-for="(value,key) in showe" :key="key">{{ value.ehour }}</li></div>
-            <div class="col"><li v-for="(value,key) in shows" :key="key">{{value.shour }}</li></div>
-            <div class="col"><li v-for="(value,key) in showc" :key="key">{{ value.Date}}</li></div>
+            <div class="col"><div  v-for ="(valuesc,key) in showc" :key="key"><div v-if="itemdate==valuesc.Date">{{ valuesc.Calorie}}</div></div></div>
+            <div class="col"><div  v-for ="(valuese,key) in showe" :key="key"><div v-if="itemdate==valuese.Date ">{{ valuese.ehour}}</div></div></div>
+            <div class="col" ><div v-for ="(valuess,key) in shows" :key="key"><div v-if="itemdate==valuess.Date">{{ valuess.shour}}</div></div></div>
+            <div class="col">{{ itemdate }}</div>
+            
             
         </div>
     </div>
@@ -131,8 +138,9 @@ onMounted(() => {
         
        
 </template>
-  
+
 <style scoped>
+
 .dsb {
     height: 200px;
     background-color: #1E1E1E;

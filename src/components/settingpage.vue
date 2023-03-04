@@ -71,7 +71,8 @@ const { DeleteUser,signOuted } = store
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="DeleteUser()">Confirm</button>
+                    <button type="button" class="btn btn-primary" @click="DeleteUser()" data-bs-dismiss="modal">Confirm</button>
+                    
                 </div>
             </div>
         </div>

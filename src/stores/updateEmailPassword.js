@@ -37,7 +37,11 @@ export const useUpdateEP = defineStore('updateEP', () => {
     deleteUser(user)
       .then(() => {
         // User deleted.
-        alertify.error('User' + user.uid +'deleted.');
+        alertify.error('User deleted.');
+        setTimeout(()=>{
+          router.push("/")
+        },1500)
+        
       })
       .catch((error) => {
         // An error ocurred

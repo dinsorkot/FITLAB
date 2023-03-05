@@ -8,7 +8,7 @@ const { showe, shows, showc, q, sumc, sumeh, sumem, sumsh, sumsm, numsh, numc, n
 const { User, getuser, Calorie, Exercise, Sleep, } = data;
 getuser();
 const userid = ref(null);
-const datachart=[];
+
 
 
 setTimeout(function () {
@@ -29,7 +29,7 @@ setTimeout(function () {
 
     <div class="container text-light">
         <div>
-            <div>Overview</div>
+            <div style="font-size: 25px;">Overview</div>
             <div class="container ">
                 <div class="row">
                     <div class="col">
@@ -126,7 +126,7 @@ setTimeout(function () {
 
             </div>
         </div>
-        <div class="container mt-5">
+        <div class="container mt-4">
             <div class="row border border-secondary border-3 bgtable" style="font-size:25px;">
 
                 <div class="col  d-flex justify-content-center">Calories</div>

@@ -91,7 +91,7 @@ onAuthStateChanged(auth, (user) => {
   <div>
     <div class="container-fluid navbt h-100">
       <div class="row p-2 h-100 cl-btw">
-        <div class="col icon-col d-flex justify-content-center ">
+        <div class="col icon-col d-flex justify-content-center " >
           <input type="radio" class="btn-check" name="options" id="post" autocomplete="off" @click="showPost()" checked>
           <label class="d-flex justify-content-center align-items-center icon-menu btn btn-dark" for="post">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="25">
@@ -154,7 +154,7 @@ onAuthStateChanged(auth, (user) => {
             </svg>
           </label>
         </div>
-        <div class="col icon-col d-flex justify-content-center">
+        <div class="col icon-col d-flex justify-content-center" >
           <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" @click="showSetting()">
           <label class="icon-menu btn btn-dark d-flex justify-content-center align-items-center" for="option2">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="25">
@@ -198,6 +198,10 @@ onAuthStateChanged(auth, (user) => {
 </template>
   
 <style scoped>
+
+.settingG {
+  margin-top: 100px;
+}
 .icon-menu {
   height: 50px;
 }
@@ -238,6 +242,7 @@ onAuthStateChanged(auth, (user) => {
   .cl-btw {
     margin-top: 0px;
     gap: 0px;
+    justify-content: center;
   }
 
   .view {

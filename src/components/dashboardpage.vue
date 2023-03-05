@@ -8,6 +8,8 @@ const { showe, shows, showc, q, sumc, sumeh, sumem, sumsh, sumsm, numsh, numc, n
 const { User, getuser, Calorie, Exercise, Sleep, } = data;
 getuser();
 const userid = ref(null);
+const datachart=[];
+
 
 setTimeout(function () {
     Calorie();
@@ -18,11 +20,13 @@ setTimeout(function () {
     console.log("userid : " + userid.value)
     console.log("q : " + q.value)
     console.log("sumc : " + sumc.value); 
+    console.log("Datachart ",shows.value)
 }, 1000)
 
 
 </script>
 <template>
+
     <div class="container text-light">
         <div>
             <div>Overview</div>
@@ -122,41 +126,41 @@ setTimeout(function () {
 
             </div>
         </div>
-        <div class="container mt-3">
-            <div class="row">
+        <div class="container mt-5">
+            <div class="row border border-secondary border-3 bgtable" style="font-size:25px;">
 
-                <div class="col">Calories</div>
-                <div class="col">exercise</div>
-                <div class="col">sleep</div>
-                <div class="col">วัน/เดือน/ปี</div>
+                <div class="col  d-flex justify-content-center">Calories</div>
+                <div class="col  d-flex justify-content-center">exercise</div>
+                <div class="col  d-flex justify-content-center">sleep</div>
+                <div class="col  d-flex justify-content-center">ปี-เดือน-วัน</div>
             </div>
-            <div v-for="(itemdate) in q" :key="itemdate">
-                <div class="row">
+            <div v-for="(itemdate) in q" :key="itemdate" style="font-size: 18px;" >
+                <div class="row border border-secondary" >
                     <div class="col">
                         <div v-for="(valuesc, key) in showc" :key="key">
                             <div v-if="itemdate == valuesc.Date">
-                                <div v-if="valuesc.ID == userid">{{ valuesc.food + " : " + valuesc.Calorie }}</div>
+                                <div v-if="valuesc.ID == userid" class="bgtable border border-white d-flex justify-content-center m-2" style="border-radius: 25px;">{{ valuesc.food + " : " + valuesc.Calorie +" Kcal"}}</div>
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div v-for="(valuese, key) in showe" :key="key">
                             <div v-if="itemdate == valuese.Date">
-                                <div v-if="valuese.ID == userid">{{ valuese.ehour + " : " + valuese.eminute }}</div>
+                                <div v-if="valuese.ID == userid" class="bgtable border border-white d-flex justify-content-center m-2" style="border-radius: 25px;">{{ valuese.ehour + " : " + valuese.eminute }}</div>
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div v-for="(valuess, key) in shows" :key="key">
                             <div v-if="itemdate == valuess.Date">
-                                <div v-if="valuess.ID == userid">{{ valuess.shour + " : " + valuess.sminute }}</div>
+                                <div v-if="valuess.ID == userid" class="bgtable border border-white d-flex justify-content-center m-2" style="border-radius: 25px;">{{ valuess.shour + " : " + valuess.sminute }}</div>
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div v-for="(IdDate, key) in dataID" :key="key">
                             <div v-if="itemdate == IdDate.Date">
-                                <div v-if="IdDate.ID == userid">{{ IdDate.Date }}</div>
+                                <div v-if="IdDate.ID == userid" class="bgtable border border-white d-flex justify-content-center m-2" style="border-radius: 25px;">{{ IdDate.Date }}</div>
                             </div>
                         </div>
                     </div>
@@ -173,6 +177,10 @@ setTimeout(function () {
     background-color: #1E1E1E;
     border-radius: 20px;
     margin-top: 20px;
+}
+.bgtable {
+    background-color:#1E1E1E;
+    
 }
 
 .box {

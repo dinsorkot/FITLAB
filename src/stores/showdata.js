@@ -32,16 +32,12 @@ export const Data = defineStore('showdata', () => {
   const getuser = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
         uid.value = user.uid
         username.value = user.displayName
-        // ...
-        console.log(uid.value)
-        console.log(username.value)
+        console.log('uid : ' + uid.value)
+        console.log('username ' + username.value)
       } else {
-        // User is signed out
-        // ...
+
       }
     })
   }
@@ -51,6 +47,7 @@ export const Data = defineStore('showdata', () => {
   }
 
   const Calorie = async () => {
+    console.log('GetCalorie')
     showc.value = []
     Database.value = []
     q.value = []
@@ -80,11 +77,11 @@ export const Data = defineStore('showdata', () => {
       dataID.value = ID.value.filter(
         (item, index, self) => index === self.findIndex((t) => t.Date === item.Date)
       )
-
-      console.log(q)
-      console.log(numc)
-      console.log(dataID)
     })
+    console.log('GetCalorie q : ' + q.value)
+    console.log('GetCalorie numc : ' + numc.value)
+    console.log('GetCalorie dataID : ' + dataID.value)
+    console.log('showC : '+ showc.value);
   }
 
   const Exercise = async () => {
@@ -108,8 +105,6 @@ export const Data = defineStore('showdata', () => {
       }
       showe.value.push(ExerciseData)
       Database.value.push(ExerciseData.Date)
-
-      console.log(ExerciseData.value)
       ID.value.push(ExerciseData)
       if (uid.value == ExerciseData.ID) {
         numeh.value.push(doc.data().hour)
@@ -123,11 +118,13 @@ export const Data = defineStore('showdata', () => {
       dataID.value = ID.value.filter(
         (item, index, self) => index === self.findIndex((t) => t.Date === item.Date)
       )
-      console.log(q.value)
     })
+    console.log('GetExercise exerciseData : ' + ExerciseData.value)
+    console.log('GetExercise q ' + q.value)
   }
 
   const Sleep = async () => {
+    console.log('GetSleep')
     shows.value = []
     Database.value = []
     q.value = []
@@ -154,8 +151,8 @@ export const Data = defineStore('showdata', () => {
         numsm.value.push(doc.data().minute)
         sumsh.value = numsh.value.reduce((sumsh, n) => sumsh + n, 0)
         sumsm.value = numsm.value.reduce((sumsm, n1) => sumsm + n1, 0)
-        console.log('nummmm', numsh)
-        console.log('nummmm', numsm)
+        console.log('GetSleep nummmm : ', numsh)
+        console.log('GetSleep nummmm : ', numsm)
       }
       q.value = Database.value.filter((item, index) => {
         return Database.value.indexOf(item) === index
@@ -163,9 +160,8 @@ export const Data = defineStore('showdata', () => {
       dataID.value = ID.value.filter(
         (item, index, self) => index === self.findIndex((t) => t.Date === item.Date)
       )
-
-      console.log(dataID.value)
     })
+    console.log('GetSleep dataID ' + dataID.value)
   }
 
   return {

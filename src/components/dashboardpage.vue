@@ -1,21 +1,26 @@
 <script setup>
 import { Data } from "../stores/showdata";
 import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
 
 const data = Data();
-const { User, getuser, Calorie, Exercise, Sleep, showe, shows, showc, q, sumc, sumeh, sumem, sumsh, sumsm, numsh, numc, numeh, dataID } = data;
+const { showe, shows, showc, q, sumc, sumeh, sumem, sumsh, sumsm, numsh, numc, numeh, dataID } = storeToRefs(data)
+const { User, getuser, Calorie, Exercise, Sleep, } = data;
 getuser();
-Calorie();
-Exercise();
-Sleep();
-console.log("SSSSSS" + showc)
 const userid = ref(null);
 
 setTimeout(function () {
+    Calorie();
+    Exercise();
+    Sleep();
+    console.log("showc : " + showc.value)
     userid.value = User();
-    console.log("ssssaaaaaa" + userid.value)
-}, 1500)
-console.log("qqqqqqq" + q)
+    console.log("userid : " + userid.value)
+    console.log("q : " + q.value)
+    console.log("sumc : " + sumc.value); 
+}, 1000)
+
+
 </script>
 <template>
     <div class="container text-light">
@@ -47,7 +52,8 @@ console.log("qqqqqqq" + q)
                             </div>
                             <div>
                                 <h4>Calories</h4>
-                                <h2>{{ ((sumc) / numc.length).toFixed(2) }} kcal</h2>
+                                <h2 v-if="((sumc) / numc.length).toFixed(2) != 'NaN'">{{ ((sumc) / numc.length).toFixed(2) }} kcal</h2>
+                                <h2 v-else>0 hour</h2>
                                 <h6>DAILY AVERAGE</h6>
                             </div>
                         </div>
@@ -76,7 +82,8 @@ console.log("qqqqqqq" + q)
                             </div>
                             <div>
                                 <h4>Exercise</h4>
-                                <h2>{{ ((sumeh + (sumem / 60)) / numeh.length).toFixed(2) }} hour</h2>
+                                <h2 v-if="((sumeh + (sumem / 60)) / numeh.length).toFixed(2) != 'NaN'">{{ ((sumeh + (sumem / 60)) / numeh.length).toFixed(2) }} hour</h2> 
+                                <h2 v-else>0 hour</h2>
                                 <h6>DAILY AVERAGE</h6>
                             </div>
                         </div>
@@ -105,7 +112,8 @@ console.log("qqqqqqq" + q)
                             </div>
                             <div>
                                 <h4>Sleep</h4>
-                                <h2>{{ ((sumsh + (sumsm / 60)) / numsh.length).toFixed(2) }} hour</h2>
+                                <h2 v-if="((sumsh + (sumsm / 60)) / numsh.length).toFixed(2) != 'NaN'">{{ ((sumsh + (sumsm / 60)) / numsh.length).toFixed(2) }} hour</h2>
+                                <h2 v-else>0 hour</h2>
                                 <h6>DAILY AVERAGE</h6>
                             </div>
                         </div>

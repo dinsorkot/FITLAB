@@ -6,6 +6,7 @@ import profilepage from '../components/profilepage.vue';
 import setting from '../components/settingpage.vue'
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const router = useRouter();
 
@@ -33,7 +34,6 @@ const showDashBoard = () => {
   console.log('showDashBoard');
 
 }
-
 const showForm = () => {
   postView.value = false;
   dashboardView.value = false;
@@ -43,7 +43,6 @@ const showForm = () => {
   console.log('showForm');
 
 }
-
 const showProfile = () => {
   postView.value = false;
   dashboardView.value = false;
@@ -53,7 +52,6 @@ const showProfile = () => {
   console.log('showProfile');
 
 }
-
 const showSetting = () => {
   postView.value = false;
   dashboardView.value = false;
@@ -63,6 +61,21 @@ const showSetting = () => {
   console.log('showSetting');
 
 }
+
+const username = ref('');
+
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+
+    const uid = user.uid;
+    username.value = user.displayName;
+
+  } else {
+    // User is signed out
+    // ...
+  }
+});
 
 </script>
 <template>
@@ -96,7 +109,7 @@ const showSetting = () => {
             </svg>
           </label>
         </div>
-        <div class="col icon-col d-flex justify-content-center">
+        <div class="col icon-col d-flex justify-content-center" v-if="username == ''">
           <input type="radio" class="btn-check" name="options" id="dashboard" autocomplete="off" @click="showDashBoard()">
           <label class="icon-menu btn btn-dark d-flex justify-content-center align-items-center" for="dashboard">
             <svg height="25" width="25" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +126,7 @@ const showSetting = () => {
             </svg>
           </label>
         </div>
-        <div class="col icon-col d-flex justify-content-center">
+        <div class="col icon-col d-flex justify-content-center" v-if="username == ''">
           <input type="radio" class="btn-check" name="options" id="form" autocomplete="off" @click="showForm()">
           <label class="icon-menu btn btn-dark d-flex justify-content-center align-items-center" for="form">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="25">
@@ -127,7 +140,7 @@ const showSetting = () => {
             </svg>
           </label>
         </div>
-        <div class="col icon-col d-flex justify-content-center">
+        <div class="col icon-col d-flex justify-content-center" v-if="username == ''">
           <input type="radio" class="btn-check" name="options" id="profile" autocomplete="off" @click="showProfile()">
           <label class="icon-menu btn btn-dark d-flex justify-content-center align-items-center" for="profile">
             <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" stroke-width="3" stroke="white" fill="none"

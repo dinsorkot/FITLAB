@@ -5,7 +5,6 @@ import { useExerciseStore } from "../../stores/dataExercise";
 import { db } from "/src/firebase.js";
 import { collection, addDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-var selectedNumber = ref(0);
 const store = useExerciseStore();
 const { data_hour } = storeToRefs(store);
 const auth = getAuth();
@@ -33,19 +32,8 @@ async function addexercisedata() {
 </script>
 <template>
   <div class="container">
-    <div class="mb-3 d-flex align-items-center">
-      <div class="sln">จำนวนการออกกำลังกาย</div>
-      <select
-        class="form-select"
-        aria-label="Default select example"
-        v-model="selectedNumber"
-      >
-        <option v-for="n in 10" :value="n">{{ n }}</option>
-      </select>
-    </div>
-
     <div class="row justify-content-center">
-      <div class="col-md-4 mt-3" v-for="n in selectedNumber">
+      <div class="col-md-4 mt-3" >
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">ออกกำลังกาย</h5>

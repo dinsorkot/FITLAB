@@ -26,7 +26,7 @@ getUserE();
 setTimeout(function () {
     getPosted();
     id_user.value = userData();
-}, 3000);
+}, 1000);
 
 const handleCreatePost = () => {
     createPost(post.value, time, timeInNumber)

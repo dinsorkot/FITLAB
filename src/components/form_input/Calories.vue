@@ -4,17 +4,15 @@ import { db } from "/src/firebase.js";
 import { collection, addDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-var selectedNumber = ref(0);
-
 const auth = getAuth();
 
-const caloriedata = ref({ date: "", time: "", foodname: "", numcalorie: 0 });
+const caloriedata = ref({ id:"",date: "", time: "", foodname: "", numcalorie: 0 });
 const uid = ref();
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
     uid.value = user.uid;
-    console.log(uid);
+    console.log(uid.value);
     caloriedata.value.id = uid;
   } else {
     // User is signed out
@@ -33,19 +31,8 @@ async function addcaloriedata() {
 </script>
 <template>
   <div class="container">
-    <div class="mb-3 d-flex align-items-center">
-      <div class="sln">จำนวนอาหารที่ทานไป</div>
-      <select
-        class="form-select"
-        aria-label="Default select example"
-        v-model="selectedNumber"
-      >
-        <option v-for="n in 10" :value="n">{{ n }}</option>
-      </select>
-    </div>
-
     <div class="row justify-content-center">
-      <div class="col-md-4 mt-3" v-for="n in selectedNumber">
+      <div class="col-md-4 mt-3">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">อาหาร</h5>

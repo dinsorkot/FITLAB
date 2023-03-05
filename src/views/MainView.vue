@@ -76,7 +76,7 @@ onAuthStateChanged(auth, (user) => {
     // ...
   }
 });
-
+console.log(username);
 </script>
 <template>
   <div>
@@ -109,7 +109,7 @@ onAuthStateChanged(auth, (user) => {
             </svg>
           </label>
         </div>
-        <div class="col icon-col d-flex justify-content-center" v-if="username == ''">
+        <div class="col icon-col d-flex justify-content-center" v-if="username == null">
           <input type="radio" class="btn-check" name="options" id="dashboard" autocomplete="off" @click="showDashBoard()">
           <label class="icon-menu btn btn-dark d-flex justify-content-center align-items-center" for="dashboard">
             <svg height="25" width="25" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +126,7 @@ onAuthStateChanged(auth, (user) => {
             </svg>
           </label>
         </div>
-        <div class="col icon-col d-flex justify-content-center" v-if="username == ''">
+        <div class="col icon-col d-flex justify-content-center" v-if="username == null">
           <input type="radio" class="btn-check" name="options" id="form" autocomplete="off" @click="showForm()">
           <label class="icon-menu btn btn-dark d-flex justify-content-center align-items-center" for="form">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="25">
@@ -140,7 +140,7 @@ onAuthStateChanged(auth, (user) => {
             </svg>
           </label>
         </div>
-        <div class="col icon-col d-flex justify-content-center" v-if="username == ''">
+        <div class="col icon-col d-flex justify-content-center" v-if="username == null">
           <input type="radio" class="btn-check" name="options" id="profile" autocomplete="off" @click="showProfile()">
           <label class="icon-menu btn btn-dark d-flex justify-content-center align-items-center" for="profile">
             <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" stroke-width="3" stroke="white" fill="none"
